@@ -68,7 +68,7 @@
                     var currentStateData = {
                         name: $state.current.name || 'author',
                         params: $state.params,
-                        url: $state.href($state.current.name, $state.params)
+                        url: $state.href('author')
                     };
                     return currentStateData;
                 }]

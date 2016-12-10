@@ -55,6 +55,7 @@
                     Auth.resetPreviousState();
                     $state.go(previousState.name, previousState.params);
                 }
+                $state.go('author');
             }).catch(function () {
                 vm.authenticationError = true;
             });

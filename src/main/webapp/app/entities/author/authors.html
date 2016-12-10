@@ -29,7 +29,7 @@
             <tbody>
                 <tr ng-repeat-start="author in vm.authors track by author.id">
                     
-                    <td><a ui-sref="author-detail({id:author.id})">{{author.name}}</a></td>
+                    <td><a ng-click="vm.showBook(author)">{{author.name}}</a></td>
                         <td>{{author.birthDate | ageFilter}}</td>
                     <td>{{author.nickname}}</td>
                     <td>{{author.id}}</td>
