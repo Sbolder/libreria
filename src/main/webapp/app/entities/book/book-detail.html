@@ -1,0 +1,58 @@
+
+<div>
+    <h2><span>Book</span> {{vm.book.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Title</span></dt>
+        <dd>
+            <span>{{vm.book.title}}</span>
+        </dd>
+        <dt><span>Price</span></dt>
+        <dd>
+            <span>{{vm.book.price}}</span>
+        </dd>
+        <dt><span>Sold</span></dt>
+        <dd>
+            <span>{{vm.book.sold}}</span>
+        </dd>
+        <dt><span>Isbn</span></dt>
+        <dd>
+            <span>{{vm.book.isbn}}</span>
+        </dd>
+        <dt><span>Year</span></dt>
+        <dd>
+            <span>{{vm.book.year}}</span>
+        </dd>
+        <dt><span>Publisher</span></dt>
+        <dd>
+            <span>{{vm.book.publisher}}</span>
+        </dd>
+        <dt><span>Series</span></dt>
+        <dd>
+            <span>{{vm.book.series}}</span>
+        </dd>
+        <dt><span>Page</span></dt>
+        <dd>
+            <span>{{vm.book.page}}</span>
+        </dd>
+        <dt><span>Img</span></dt>
+        <dd>
+            <div ng-if="vm.book.img">
+                <a ng-click="vm.openFile(vm.book.imgContentType, vm.book.img)">
+                    <img data-ng-src="{{'data:' + vm.book.imgContentType + ';base64,' + vm.book.img}}" style="max-width: 100%;" alt="book image"/>
+                </a>
+                {{vm.book.imgContentType}}, {{vm.byteSize(vm.book.img)}}
+            </div>
+        </dd>
+        <dt><span>Author</span></dt>
+        <dd>
+            <a ui-sref="author-detail({id:vm.book.author.id})">{{vm.book.author.name}}</a>
+        </dd>
+    </dl>
+
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+
+</div>

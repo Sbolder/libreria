@@ -1,0 +1,172 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myBookLabel">Create or edit a Book</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.book.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.book.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="vm.book.title"
+                    required />
+            <div ng-show="editForm.title.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.title.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_price">Price</label>
+            <input type="number" class="form-control" name="price" id="field_price"
+                    ng-model="vm.book.price"
+                    required />
+            <div ng-show="editForm.price.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.price.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.price.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_sold">Sold</label>
+            <input type="number" class="form-control" name="sold" id="field_sold"
+                    ng-model="vm.book.sold"
+                    required min="0" max="100" />
+            <div ng-show="editForm.sold.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.sold.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.sold.$error.min" translate-value-min="0">
+                    This field should be more than 0.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.sold.$error.max">
+                    This field cannot be more than 100.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.sold.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_isbn">Isbn</label>
+            <input type="text" class="form-control" name="isbn" id="field_isbn"
+                    ng-model="vm.book.isbn"
+                    required />
+            <div ng-show="editForm.isbn.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.isbn.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_year">Year</label>
+            <input type="number" class="form-control" name="year" id="field_year"
+                    ng-model="vm.book.year"
+                    required min="1900" max="2100" />
+            <div ng-show="editForm.year.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.year.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.year.$error.min" translate-value-min="1900">
+                    This field should be more than 1900.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.year.$error.max">
+                    This field cannot be more than 2100.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.year.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_publisher">Publisher</label>
+            <input type="text" class="form-control" name="publisher" id="field_publisher"
+                    ng-model="vm.book.publisher"
+                    required />
+            <div ng-show="editForm.publisher.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.publisher.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_series">Series</label>
+            <input type="text" class="form-control" name="series" id="field_series"
+                    ng-model="vm.book.series"
+                    required />
+            <div ng-show="editForm.series.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.series.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_page">Page</label>
+            <input type="number" class="form-control" name="page" id="field_page"
+                    ng-model="vm.book.page"
+                     />
+        </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setImg($file, vm.book)" ngf-pattern="'image/*'">
+            <label class="control-label" for="field_img">Img</label>
+            <div>
+                <img data-ng-src="{{'data:' + vm.book.imgContentType + ';base64,' + vm.book.img}}" style="max-height: 100px;" ng-if="vm.book.img" alt="book image"/>
+                <div ng-if="vm.book.img" class="help-block clearfix">
+                    <span class="pull-left">{{vm.book.imgContentType}}, {{vm.byteSize(vm.book.img)}}</span>
+                    <button type="button" ng-click="vm.book.img=null;vm.book.imgContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="button" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setImg($file, vm.book)" accept="image/*">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="img" id="field_img"
+                    ng-model="vm.book.img"
+                     />
+            <input type="hidden" class="form-control" name="imgContentType" id="field_imgContentType"
+                    ng-model="vm.book.imgContentType" />
+        </div>
+
+        <div class="form-group">
+            <label for="field_author">Author</label>
+            <select class="form-control" id="field_author" name="author" ng-model="vm.book.author" ng-options="author as author.name for author in vm.authors track by author.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

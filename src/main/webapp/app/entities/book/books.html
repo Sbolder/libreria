@@ -1,0 +1,85 @@
+<div>
+    <h2>Books</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="book.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Book
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="title"><span>Title</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="price"><span>Price</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="sold"><span>Sold</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="isbn"><span>Isbn</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="year"><span>Year</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="publisher"><span>Publisher</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="series"><span>Series</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="page"><span>Page</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="img"><span>Img</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="author.name"><span>Author</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="book in vm.books track by book.id">
+                    <td><a ui-sref="book-detail({id:book.id})">{{book.id}}</a></td>
+                    <td>{{book.title}}</td>
+                    <td>{{book.price}}</td>
+                    <td>{{book.sold}}</td>
+                    <td>{{book.isbn}}</td>
+                    <td>{{book.year}}</td>
+                    <td>{{book.publisher}}</td>
+                    <td>{{book.series}}</td>
+                    <td>{{book.page}}</td>
+                    <td>
+                        <a ng-if="book.img" ng-click="vm.openFile(book.imgContentType, book.img)">
+                            <img data-ng-src="{{'data:' + book.imgContentType + ';base64,' + book.img}}" style="max-height: 30px;" alt="book image"/>
+                        </a>
+                        <span ng-if="book.img">{{book.imgContentType}}, {{vm.byteSize(book.img)}}</span>
+                    </td>
+                    <td>
+                        <a ui-sref="author-detail({id:book.author.id})">{{book.author.name}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="book-detail({id:book.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="book.edit({id:book.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="book.delete({id:book.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>
