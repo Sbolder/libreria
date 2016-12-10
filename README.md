@@ -1,3 +1,27 @@
+# informazioni
+
+Per realizzare l'applicazione è stata utilizzato JHipster 3.12.1, documentazione disponibile [https://jhipster.github.io/documentation-archive/v3.12.1].
+
+# Istruzione per eseguire
+
+link : https://www.dropbox.com/s/75m84wiykvr62k7/libreria.tar.gz?dl=0
+
+Dal link precedente scaricare il file libreria.tar.gz, l'archivio contiene 3 file:
+	libreria.mv.db e libreria.trace.db : sono i database dell'applicazione
+	libreria-0.0.1-SNAPSHOT.war 
+
+Per eseguire l'applicazione è necessario aver installato java 8
+da linux è sufficiente eseguire il comando
+
+	java -jar libreria-0.0.1-SNAPSHOT.war
+
+Generalmente l'applicazione viene avviata sulla porta 8080
+
+L'username di default sono : username: user , password: user ( per un utilizzo utente), username: admin, password: admin (per avere strumenti amministrativi)
+
+Una breve guida dell'utilizzo dell'applicazione è contenuta nel file doc_libreria.pdf all'interno del link dropbox.
+
+
 # libreria
 
 This application was generated using JHipster 3.12.1, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v3.12.1](https://jhipster.github.io/documentation-archive/v3.12.1).
