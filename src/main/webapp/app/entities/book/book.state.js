@@ -93,9 +93,9 @@
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('^', {}, { reload: false });
+                    $state.go('author', {}, { reload: false });
                 }, function() {
-                    $state.go('^');
+                    $state.go('author');
                 });
             }]
         })

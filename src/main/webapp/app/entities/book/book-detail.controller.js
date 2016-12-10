@@ -13,6 +13,7 @@
         vm.book = entity;
         vm.byteSize = DataUtils.byteSize;
         vm.openFile = DataUtils.openFile;
+        vm.clear = clear;
 
         var unsubscribe = $rootScope.$on('libreriaApp:bookUpdate', function(event, result) {
             vm.book = result;

@@ -1,16 +1,9 @@
 <div>
-    <h2>Authors</h2>
+    <h2>Elenco degli autori</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="author.new" >
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span >
-                        Create new Author
-                    </span>
-                </button>
-            </div>
+
         </div>
     </div>
     <br/>
@@ -28,7 +21,6 @@
             </thead>
             <tbody>
                 <tr ng-repeat-start="author in vm.authors track by author.id">
-                    
                     <td><a ng-click="vm.showBook(author)">{{author.name}}</a></td>
                         <td>{{author.birthDate | ageFilter}}</td>
                     <td>{{author.nickname}}</td>
@@ -40,17 +32,52 @@
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm"></span>
                             </button>
-
-
                         </div>
                     </td>
                 </tr>
-                <tr ng-repeat-end ng-repeat="book in author.books" ng-show="vm.isSelected(author)">
-                	<td>{{book.title}}</td>
-                	<td>{{book.year}}</td>
-                	<td>{{book.page}}</td>
-                	<td><a ui-sref="book-detail({id:book.id})">{{book.id}}</a></td>
-                	
+                <tr ng-repeat-end ng-show="vm.isSelected(author)">
+	                <td colspan="5">
+			             <table class="jh-table table table-striped">
+				             <thead>
+				                 <tr jh-sort="vm.predicateBook" ascending="vm.reverseBook" callback="vm.transitionBook(author)">
+				                     
+				                     <th jh-sort-by="title"><span>Titolo</span> <span class="glyphicon glyphicon-sort"></span></th>
+				                     <th jh-sort-by="year"><span>Anno</span> <span class="glyphicon glyphicon-sort"></span></th>
+				                     <th jh-sort-by="page"><span>Pagine</span> <span class="glyphicon glyphicon-sort"></span></th>
+				                     <th jh-sort-by="price"><span>Prezzo</span> <span class="glyphicon glyphicon-sort"></span></th>
+				                     <th jh-sort-by="sold"><span>Sconto</span> <span class="glyphicon glyphicon-sort"></span></th>
+				                     <th> </th>  
+				                     
+				                     
+				                     
+
+				                     <th></th>
+				                 </tr>
+				             </thead>
+				             <tbody>
+				                 <tr ng-repeat="book in author.books track by book.id">
+				                     <td>{{book.title}}</td>
+				                     <td>{{book.year}}</td>
+				                     <td>{{book.page}}</td>
+				                     <td>{{book.price}}</td>
+				                     <td>{{book.sold}}</td>
+				                     <td class="text-right">
+                        			<div class="btn-group flex-btn-group-container">
+                            			<button ui-sref="book-detail({id:book.id})"
+                                    	class="btn btn-info btn-sm">
+                                		<span class="glyphicon glyphicon-eye-open"></span>
+                                		<span class="hidden-xs hidden-sm"></span>
+                            			</button>
+                        			</div>
+                    				</td>
+				                 </tr>
+				             </tbody>
+				         </table>
+				             <div class="text-center">
+						        <jhi-item-count page="vm.pageBook" total="vm.queryCountBook" items-per-page="vm.itemsPerPageBook"></jhi-item-count>
+						        <uib-pagination class="pagination-sm" total-items="vm.totalItemsBook" items-per-page="vm.itemsPerPageBook" ng-model="vm.pageBook" ng-change="vm.transitionBook(author)"></uib-pagination>
+						    </div>
+		            </td>
                 </tr>
             </tbody>
         </table>

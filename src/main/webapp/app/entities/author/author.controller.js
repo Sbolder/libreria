@@ -5,22 +5,33 @@
         .module('libreriaApp')
         .controller('AuthorController', AuthorController);
 
-    AuthorController.$inject = ['$scope', '$state', 'Author', 'BookAuthor', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    AuthorController.$inject = ['$scope', '$state', 'Author', 'BookAuthor', 'DataUtils', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'pagingParamsBook'];
 
-    function AuthorController ($scope, $state, Author, BookAuthor, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function AuthorController ($scope, $state, Author, BookAuthor, DataUtils, ParseLinks, AlertService, paginationConstants, pagingParams, pagingParamsBook) {
         var vm = this;
 
         vm.loadPage = loadPage;
         vm.predicate = pagingParams.predicate;
         vm.reverse = pagingParams.ascending;
+        vm.predicateBook = pagingParamsBook.predicate;
+        vm.reverseBook = pagingParamsBook.ascending;
         vm.transition = transition;
+        vm.transitionBook = transitionBook;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
+        vm.itemsPerPageBook = paginationConstants.itemsPerPage;
+        vm.openFile = DataUtils.openFile;
+        vm.byteSize = DataUtils.byteSize;
         vm.showBook = function(author){
         	if(author.isSelected === undefined || author.isSelected === false){
 	        	author.books = BookAuthor.query({
-	                page: pagingParams.page - 1,
+	                page: pagingParams.pageBook - 1,
 	                size: vm.itemsPerPage,
 	                id: author.id
+	            },function(books,headers){
+	                 vm.totalItemsBook = headers('X-Total-Count');
+	                 vm.queryCountBook = vm.totalItemsBook;
+	                 author.books = books;
+	                 vm.pageBook = pagingParamsBook.pageBook;
 	            });
 	        	author.isSelected = true;
         	}else{
@@ -73,6 +84,30 @@
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
                 search: vm.currentSearch
             });
+        }
+        
+        function transitionBook(author) {
+        	author.books = BookAuthor.query({
+                page: vm.pageBook - 1,
+                size: vm.itemsPerPage,
+                sort: sortBook(),
+                id: author.id
+            },function(books,headers){
+                 vm.totalItemsBook = headers('X-Total-Count');
+                 vm.queryCountBook = vm.totalItemsBook;
+                 author.books = books;
+            });
+        	
+            function sortBook() {
+            	if(vm.predicateBook === undefined)
+            		vm.predicateBook = 'id';
+                var result = [vm.predicateBook + ',' + (vm.reverseBook ? 'asc' : 'desc')];
+                if (vm.predicateBook !== 'id') {
+                    result.push('id');
+                }
+                return result;
+            }
+        	
         }
     }
 })();

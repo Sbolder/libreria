@@ -15,6 +15,19 @@
             <ul class="nav navbar-nav navbar-right">
                
                 <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
+ 				<li ng-click="{active: vm.$state.go('author')}" uib-dropdown class="dropdown pointer">
+                    <a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-menu">
+                        <span>
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span class="hidden-sm">
+                                Home
+                            </span>
+                        </span>
+                    </a>
+                    </li>
+
+
+
 
                 <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown class="dropdown pointer">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-menu">

@@ -32,7 +32,16 @@
                     value: 'id,asc',
                     squash: true
                 },
-                search: null
+                search: null,
+                pageBook: {
+                    value: '1',
+                    squash: true
+                },
+                sortBook: {
+                    value: 'id,asc',
+                    squash: true
+                },
+                searchBook: null
             },
             resolve: {
                 pagingParams: ['$stateParams', 'PaginationUtil', function ($stateParams, PaginationUtil) {
@@ -44,6 +53,16 @@
                         search: $stateParams.search
                     };
                 }],
+                pagingParamsBook: ['$stateParams', 'PaginationUtil', function ($stateParams, PaginationUtil) {
+                    return {
+                    	pageBook: PaginationUtil.parsePage($stateParams.pageBook),
+                    	sortBook: $stateParams.sortBook,
+                    	predicateBook: PaginationUtil.parsePredicate($stateParams.sortBook),
+                        ascendingBook: PaginationUtil.parseAscending($stateParams.sortBook),
+                        searchBook: $stateParams.searchBook
+                    };
+                }]
+                
             }
         })
         .state('author-detail', {
